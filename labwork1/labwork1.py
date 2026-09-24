@@ -63,7 +63,7 @@ def extract_even(t):
            t1.append(int(i))
     return t1
 
-def fact_recursive(n):
+def factRecursive(n):
     if n < 0:
         return -1;
     # convention: 0! = 1; 1! = 1
@@ -124,6 +124,7 @@ temp = input("What is your favourite color? ")
 if temp in color:
     print(f"Your color is at index {color.index(temp) + 1} in my list\n")
 else:
+    # Êxpected: Yellow, Brown, Orange, gReEN, BLUE...
     print("Sorry, I could not find your color\n")
 
 #Ex 6
