@@ -1,10 +1,11 @@
-def isPrime(n):
+# Functions
+def isPrime(n):     # Prime number check
     for i in range(2,int(n**0.5)+1):
         if n%i == 0:
             return False
     return True
 
-def isPerfect(n):
+def isPerfect(n):    # Perfect number check
     sumDivs = 0
     for i in range(1,n):
         if n%i == 0:
@@ -13,7 +14,7 @@ def isPerfect(n):
         return True
     return False
 
-def getDivisors(n):
+def getDivisors(n):    # Get all divisors
     divs = []
     sign = 1
     n1 = n
@@ -29,12 +30,12 @@ def getDivisors(n):
             divs.append(i*sign)
     return divs
 
-def remove_dollar_sign(s):
+def remove_dollar_sign(s):    # Remove dollar signs $ by split String to List and join List to String
     s1 = s.split('$')
     s = ''.join(s1)
     return s
 
-def toIntList(t):
+def toIntList(t):    # Convert String into List for convenience
     # Expected input [1, 2, 3]; 1, 2, 3; 1 2 3; 123
     if (type(t) == list):
         return t
@@ -54,7 +55,7 @@ def toIntList(t):
         t2.append(int(i))
     return t2
 
-def extract_even(t):
+def extract_even(t):    # Even number extractor
     t1 = []
     if (type(t) != list):
         t = toIntList(t)
@@ -63,7 +64,7 @@ def extract_even(t):
            t1.append(int(i))
     return t1
 
-def factRecursive(n):
+def factRecursive(n):    # Factorial - Recurssion function
     if n < 0:
         return -1;
     # convention: 0! = 1; 1! = 1
@@ -74,7 +75,7 @@ def factRecursive(n):
     else:
         return n*fact(n-1)
 
-def fact(n):
+def fact(n):    # Factorial - Preferred function
     temp = 1
     if n < 0:
         return -1;
@@ -82,7 +83,7 @@ def fact(n):
         temp *= i
     return temp
 
-def getDist(t1, t2):
+def getDist(t1, t2):    # Distance between 2 points (maximum 3-dimensional space)
     if len(t1) == 1:
         if t2[0] > t1[0]:
             return t2[0] - t1[0]
@@ -93,7 +94,7 @@ def getDist(t1, t2):
         return ((t2[0] - t1[0])**2 + (t2[1] - t1[1])**2 + (t2[2] - t1[2])**2)**0.5
     return -1;
 
-
+# Main
 #Ex 1
 pi = 3.14
 temp = float(input("Enter Radius: "))
