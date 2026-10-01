@@ -1,3 +1,4 @@
+git remote set-url origin git@github.com:DidTheBlackMoonHowl/Python-2026-L1.git
 git add .
 git commit -m "Push Commit"
 
