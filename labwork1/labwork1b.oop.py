@@ -107,6 +107,7 @@ class courses:
             self.id = sID
             self.name = sName
             self.credit = iCredit
+            
         def __str__(self):
             return f"{self.id}"
 
@@ -141,7 +142,7 @@ class marks:
     def addMark(self, mark):
         self.list.append(mark)
 
-    def addMarks(self, students, courses, iMode):
+    def addMarks(self, students, courses, iMode = 0):
         # iMode = 0: By Course. 1: By Student
         # Add marks by course: Add marks for all student in a course
         # Add marks by student: Add marks in all course for a student
@@ -165,15 +166,15 @@ class marks:
             this.outPrint()
         print()
 
-    def listMarksMode(self, iMode, ID):
+    def listMarksMode(self, ID, iMode = 0):
         # 1: By Courses
         # 2: By Students
         # Else: All
         for this in self.list:
-            if (iMode == 1):
+            if (iMode == 0):
                 if this.courseID == ID:
                     this.outPrint()
-            elif (iMode == 2):
+            elif (iMode == 1):
                 if this.studentID == ID:
                     this.outPrint()
             else:
@@ -195,12 +196,3 @@ class marks:
         def outPrint(self):
             print(f"Course ID: {self.courseID}. Course Name: {self.courseName}")
             print(f"Student ID: {self.studentID}. Student Name: {self.studentName}. Mark: {self.markPoint}. Credits: {self.creditPoint}")
-
-#Temp
-sList = students()
-cList = courses()
-mList = marks()
-sList.addStudent(students.student(2510332, "Hoang", "26 08 2007"))
-sList.addStudent(students.student(2511337, "Hoang", "11 07 2007"))
-cList.addCourse(courses.course(1, "APP", 4))
-cList.addCourse(courses.course(2, "OOP", 3))
