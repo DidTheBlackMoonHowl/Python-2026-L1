@@ -98,8 +98,7 @@ def addStudents(lStudents: list, iAmount: int = 1):
         iID = int(input("Students Student ID: "))
         sName = input("Enter Student Name: ")
         sDoB = input("Enter Student Birthday: ")
-        s = student(iID, sName, sDoB)
-        addObjects(lStudents, s)
+        addObjects(lStudents, student(iID, sName, sDoB))
 
 # Course Functions
 def addCourses(lCourses: list, iAmount: int = 1):
@@ -107,8 +106,7 @@ def addCourses(lCourses: list, iAmount: int = 1):
         iID = int(input("Enter Course ID: "))
         sName = input("Enter Course Name: ")
         iCredits = int(input("Enter Course Credit: "))
-        c = course(iID, sName, iCredits)
-        addObjects(lCourses, c)
+        addObjects(lCourses, course(iID, sName, iCredits))
 
 # Mark Functions
 def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0):
