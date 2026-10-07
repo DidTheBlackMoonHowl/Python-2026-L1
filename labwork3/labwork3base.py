@@ -1,7 +1,7 @@
 # Classes
 class student:
     index = -1
-    def __init__(self, iID, sName, sBirth):
+    def __init__(self, iID: int, sName: str, sBirth: str):
         self.id = iID
         self.name = sName
         self.birth = sBirth
@@ -21,12 +21,12 @@ class student:
     def getIndex(self):
         return self.index
 
-    def setIndex(self, iIndex):
+    def setIndex(self, iIndex: int):
         self.index = iIndex
 
 class course:
     index = -1
-    def __init__(self, iID, sName, iCredit):
+    def __init__(self, iID: int, sName: str, iCredit: int):
         self.id = iID
         self.name = sName
         self.credit = iCredit
@@ -49,7 +49,7 @@ class course:
     def getIndex(self):
         return self.index
 
-    def setIndex(self, iIndex):
+    def setIndex(self, iIndex: int):
         self.index = iIndex
 
 class mark:
@@ -70,18 +70,18 @@ class mark:
 
 # Functions
 # Generic
-def addObjects(lList, oObject):
+def addObjects(lList: list, oObject: object):
     lList.append(oObject)
     if ((type(oObject) == student) or type(oObject) == course):
         oObject.setIndex(len(lList) - 1)
 
-def getObject(lList, iID):
+def getObject(lList: list, iID: int):
     for obj in lList:
         if (((type(obj) == student) or (type(obj) == course)) and (obj.getID() == iID)):
             return obj
     return -1
 
-def listObjects(lList):
+def listObjects(lList: list):
     for obj in lList:
         if ((type(obj) == student)
             or (type(obj) == course) 
@@ -93,7 +93,7 @@ def listObjects(lList):
     return lList[iIndex]'''
 
 # Student Functions
-def addStudents(lStudents, iAmount):
+def addStudents(lStudents: list, iAmount: int = 1):
     for i in range(0,iAmount):
         iID = int(input("Students Student ID: "))
         sName = input("Enter Student Name: ")
@@ -102,7 +102,7 @@ def addStudents(lStudents, iAmount):
         addObjects(lStudents, s)
 
 # Course Functions
-def addCourses(lCourses, iAmount):
+def addCourses(lCourses: list, iAmount: int = 1):
     for i in range(0,iAmount):
         iID = int(input("Enter Course ID: "))
         sName = input("Enter Course Name: ")
@@ -111,7 +111,7 @@ def addCourses(lCourses, iAmount):
         addObjects(lCourses, c)
 
 # Mark Functions
-def addMarks(lStudents, lCourses, lMarks, iMode = 0):
+def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0):
     # iMode = 0: By Course. 1: By Student
     # Add marks by course: Add marks for all student in a course
     # Add marks by student: Add marks in all course for a student
@@ -136,7 +136,7 @@ def addMarks(lStudents, lCourses, lMarks, iMode = 0):
             Mark = float(input(f"Enter course {ID} - student {lStudents[i].id} mark: "))
             lMarks.append(mark(Mark, lStudents[i], getObject(lCourses, ID)))
 
-def listMark(lMarks, iID, iMode = 0):
+def listMark(lMarks: list, iID: int, iMode: int = 0):
     # 1: By Courses
     # 2: By Students
     # Else: All
@@ -149,7 +149,6 @@ def listMark(lMarks, iID, iMode = 0):
                 obj.outPrint()
         else:
             obj.outPrint()
-
 '''
 # Quick Test
 sList = []
