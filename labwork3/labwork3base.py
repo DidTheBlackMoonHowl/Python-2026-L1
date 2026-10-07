@@ -136,6 +136,19 @@ def addMarks(lStudents, lCourses, lMarks, iMode = 0):
             Mark = float(input(f"Enter course {ID} - student {lStudents[i].id} mark: "))
             lMarks.append(mark(Mark, lStudents[i], getObject(lCourses, ID)))
 
+def listMark(lMarks, iID, iMode = 0):
+    # 1: By Courses
+    # 2: By Students
+    # Else: All
+    for obj in lMarks:
+        if (iMode == 1):
+            if (obj.studentID == iID): 
+                obj.outPrint()
+        elif (iMode == 0):
+            if (obj.courseID == iID):
+                obj.outPrint()
+        else:
+            obj.outPrint()
 
 '''
 # Quick Test
