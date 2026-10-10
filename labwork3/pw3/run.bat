@@ -1,1 +1,0 @@
-py practical3.curses.py

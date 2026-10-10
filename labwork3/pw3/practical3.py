@@ -186,7 +186,7 @@ def getGPAS(lMarks: list):
     GPAs = np.array([ID, GPA])
     return GPAs
 
-def sortGPA(aGPAs: numpy.ndarray):
+def sortGPA(aGPAs: np.ndarray):
     ID = aGPAs[0]
     GPA = aGPAs[1]
     # [::-1] Is descending arrange
