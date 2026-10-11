@@ -92,6 +92,7 @@ def outPrint(oObject: object, scr = stdscr):
         msg = f"Student ID: {oObject}. Student Name: {oObject.studentName}. Mark: {oObject.markPoint}. Credits: {oObject.creditPoint}\n"
         scr.addstr(msg)
         scr.refresh()
+    scr.getkey()
 
 def addObjects(lList: list, oObject: object):
     lList.append(oObject)
@@ -113,7 +114,6 @@ def listObjects(lList: list, scr = stdscr):
             outPrint(obj, scr)
         else:
             return -1
-    stdscr.getkey()
 
 # Student Functions
 def addStudents(lStudents: list, iAmount: int = 1, scr = stdscr):
@@ -219,7 +219,6 @@ def listMark(lMarks: list, sID: str = "", iMode: int = 0, scr = stdscr):
                 outPrint(obj, scr)
         else:
             outPrint(obj, scr)
-    stdscr.getkey()
 
 # GPA Related Functions
 def getSumPoint(lMarks: list, sID: str, iMode = 0):
