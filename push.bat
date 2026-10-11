@@ -1,6 +1,6 @@
 git remote set-url origin git@github.com:DidTheBlackMoonHowl/Python-2026-L1.git
 git add .
-git commit -m "Added a simple interface"
+git commit -m "Completed Labwork3.PW3"
 
 git remote add origin https://github.com/DidTheBlackMoonHowl/Python-2026-L1
 

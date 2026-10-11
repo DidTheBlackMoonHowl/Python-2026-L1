@@ -163,7 +163,7 @@ def listMark(lMarks: list, sID: str = "", iMode: int = 0):
 
 # GPA Related Functions
 def getSumPoint(lMarks: list, sID: str, iMode = 0):
-    p = 0
+    p = 0.0
     for obj in lMarks:
         if obj.getStudentID() == sID:
             if (iMode): # Mode == 1 -> Total Credits
@@ -186,15 +186,34 @@ def getGPAS(lMarks: list):
     GPAs = np.array([ID, GPA])
     return GPAs
 
-def sortGPA(aGPAs: np.ndarray):
-    ID = aGPAs[0]
-    GPA = aGPAs[1]
+def sortGPA(aGPAs: np.ndarray, ascend: int = 0):
+    ID = aGPAs[0]   # Row 1 store IDs
+    GPA = aGPAs[1]  # Row 2 store GPAs
+    '''
+    [ID1,   ID2,    ID3...  ]
+    [GPA1,  GPA2,   GPA3... ]
+    '''
     # [::-1] Is descending arrange
     # For ascending order, remove the slicing [::-1]
     sortedIndices = np.argsort(GPA)[::-1]
+    if (ascend):
+        sortedIndices = np.argsort(GPA)
     ID = ID[sortedIndices]
     GPA = GPA[sortedIndices]
     return np.array([ID, GPA])
+
+# Expected Input: unsorted list and sorted gpa array
+def sortStudentList(lStudents: list, aGPAs: np.ndarray):
+    sortedList = []
+    # np.shape() return (rows, columns). rows and column start from 1.
+    # => shape[0] = rows; shape[1] = columns = row's length
+    length = np.shape(aGPAs)[1]
+    for i in range(0, length):
+        IDString = str(aGPAs[0, i])
+        for obj in lStudents:
+            if (IDString == obj.getID()):
+                addObjects(sortedList, obj)
+    return sortedList;
 
 def main():
     sList = []
@@ -251,27 +270,20 @@ def main():
                 print("The option is not available\n")
         elif (c == 6):
             if (enterMarks):
-                print("Mode: \n0. List all \n1. List by student \n2. List by course")
+                print("Mode: \n0. List all \n1. List by course \n2. List by student")
                 t1 = int(input("Select mark listing mode: "))
                 t2 = ""
-                if (t1 == 1):
+                if (t1 == 2):
                     t2 = input("Enter student id: ")
-                elif (t1 == 2):
+                elif (t1 == 1):
                     t2 = input("Enter course id: ")
                 listMark(mList, t2, t1)
             else:
                 print("The option is not available\n")
         elif (c == 7):
             if (enterMarks):
-                gArray = sortGPA(getGPAS(mList))
-                length = np.shape(gArray)[1]
-                for i in range(0, length):
-                    IDString = str(gArray[0, i])
-                    GPA = (float(gArray[1, i]))
-                    for obj in sList:
-                        if (IDString == obj.getID()):
-                            print(f"ID: {obj.getID()}. Name: {obj.getName()}. Date of Birth: {obj.getDoB()}. GPA: {GPA}")
-                print()
+                sList = sortStudentList(sList, sortGPA(getGPAS(mList)))
+                listObjects(sList)
             else:
                 print("The option is not available\n")
         else:
