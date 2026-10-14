@@ -8,5 +8,6 @@ pip3 install --upgrade pip
 pip install numpy
 pip install pandas
 pip install windows-curses
+pip install matplotlib
 
 call venv-deactive.bat
