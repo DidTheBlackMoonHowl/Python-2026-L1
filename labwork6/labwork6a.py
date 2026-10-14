@@ -1,14 +1,11 @@
 import math
-import matplotlib
 import matplotlib.pyplot as pl
 x = []
 y = []
 for i in range(-5, 5):
     for j in range(0, 11):
-        x1 = i + j/10
-        x.append(x1)
-        y.append(2*x1 + math.sin(x1)**2 + 3)
-        # y.append(2*i + math.sin(math.radians(i))**2 + 3)
+        x.append(i + j/10)  # -5 and 5 already included
+        y.append(2*(i + j/10) + math.sin(i + j/10)**2 + 3)
     
 pl.plot(x, y)
 pl.title("hello, po!")
