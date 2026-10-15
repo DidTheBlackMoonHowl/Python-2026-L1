@@ -89,10 +89,9 @@ def outPrint(oObject: object, scr = stdscr):
         msg = f"Course ID: {oObject.courseID}. Course Name: {oObject.courseName}\n"
         scr.addstr(msg)
         scr.refresh()
-        msg = f"Student ID: {oObject}. Student Name: {oObject.studentName}. Mark: {oObject.markPoint}. Credits: {oObject.creditPoint}\n"
+        msg = f"Student ID: {oObject.studentID}. Student Name: {oObject.studentName}. Mark: {oObject.markPoint}. Credits: {oObject.creditPoint}\n"
         scr.addstr(msg)
         scr.refresh()
-    scr.getkey()
 
 def addObjects(lList: list, oObject: object):
     lList.append(oObject)
@@ -114,6 +113,7 @@ def listObjects(lList: list, scr = stdscr):
             outPrint(obj, scr)
         else:
             return -1
+    scr.getkey()
 
 # Student Functions
 def addStudents(lStudents: list, iAmount: int = 1, scr = stdscr):
@@ -206,7 +206,7 @@ def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0, scr 
                 scr.refresh()
                 Mark = float(stdscr.getstr(l, len(msg), 7).decode("utf-8"))
                 lMarks.append(mark(Mark, lStudents[i], lCourses[j]))
-        
+                l += 1
 
 def listMark(lMarks: list, sID: str = "", iMode: int = 0, scr = stdscr):
     scr.clear()
@@ -219,6 +219,7 @@ def listMark(lMarks: list, sID: str = "", iMode: int = 0, scr = stdscr):
                 outPrint(obj, scr)
         else:
             outPrint(obj, scr)
+    scr.getkey()
 
 # GPA Related Functions
 def getSumPoint(lMarks: list, sID: str, iMode = 0):
@@ -277,140 +278,140 @@ def main(stdscr):
     c: int
     t: int
     while True:
+        stdscr.clear()
+        l = 0
+
+        msg = f"Available options: \n"
+        stdscr.addstr(msg)
+        stdscr.refresh()
+        l += 1
+        if (enteredStudents and enteredCourses):
+            if (enteredMarks):
+                msg = "1. Enter Student Informations \n2. Enter Course Informations \n3. Enter Marks \n4. List Students \n5. List Courses \n6. List Marks \n7. List Students by GPA \n0. Exit \n"
+                l += 8
+            else:
+                msg = "1. Enter Student Informations \n2. Enter Course Informations \n3. Enter Marks \n4. List Students \n5. List Courses \n0. Exit \n"
+                l += 6
+        else:
+            msg = "1. Enter Student Informations \n2. Enter Course Informations \n0. Exit \n"
+            l += 3
+        stdscr.addstr(msg)
+        stdscr.refresh()
+
+        msg = "Enter a number to select: "
+        stdscr.addstr(msg)
+        stdscr.refresh()
+        c = int(stdscr.getstr(l, len(msg), 1).decode("utf-8"))
+        l = 0
+        if (c == 0):
+            curses.nocbreak()
+            stdscr.keypad(False)
+            stdscr.refresh()
+            curses.endwin()
+            return
+        elif (c == 1):
             stdscr.clear()
-            l = 0
-
-            msg = f"Available options: \n"
+            enteredStudents = 1
+            msg = "Enter number of students: "
             stdscr.addstr(msg)
             stdscr.refresh()
-            l += 1
+            t = int(stdscr.getstr(l, len(msg), 5).decode("utf-8"))
+            addStudents(sList, t)
+        elif (c == 2):
+            stdscr.clear()
+            enteredCourses = 1
+            msg = "Enter number of courses: "
+            stdscr.addstr(msg)
+            stdscr.refresh()
+            t = int(stdscr.getstr(l, len(msg), 3).decode("utf-8"))
+            addCourses(cList, t)
+        elif (c == 3):
+            stdscr.clear()
             if (enteredStudents and enteredCourses):
-                if (enteredMarks):
-                    msg = "1. Enter Student Informations \n2. Enter Course Informations \n3. Enter Marks \n4. List Students \n5. List Courses \n6. List Marks \n7. List Students by GPA \n0. Exit \n"
-                    l += 8
-                else:
-                    msg = "1. Enter Student Informations \n2. Enter Course Informations \n3. Enter Marks \n4. List Students \n5. List Courses \n0. Exit \n"
-                    l += 6
-            else:
-                msg = "1. Enter Student Informations \n2. Enter Course Informations \n0. Exit \n"
-                l += 3
-            stdscr.addstr(msg)
-            stdscr.refresh()
-
-            msg = "Enter a number to select: "
-            stdscr.addstr(msg)
-            stdscr.refresh()
-            c = int(stdscr.getstr(l, len(msg), 1).decode("utf-8"))
-            l = 0
-            if (c == 0):
-                curses.nocbreak()
-                stdscr.keypad(False)
-                stdscr.refresh()
-                curses.endwin()
-                return
-            elif (c == 1):
-                stdscr.clear()
-                enteredStudents = 1
-                msg = "Enter number of students: "
+                enteredMarks = 1
+                msg = "Mode: \n0. Enter mark for students in all courses \n1. Enter mark by course \n2. Enter mark by student \n"
                 stdscr.addstr(msg)
                 stdscr.refresh()
-                t = int(stdscr.getstr(l, len(msg), 5).decode("utf-8"))
-                addStudents(sList, t)
-            elif (c == 2):
-                stdscr.clear()
-                enteredCourses = 1
-                msg = "Enter number of courses: "
+                l += 4
+
+                msg = "Enter mode: "
                 stdscr.addstr(msg)
                 stdscr.refresh()
-                t = int(stdscr.getstr(l, len(msg), 3).decode("utf-8"))
-                addCourses(cList, t)
-            elif (c == 3):
-                stdscr.clear()
-                if (enteredStudents and enteredCourses):
-                    enteredMarks = 1
-                    msg = "Mode: \n0. Enter mark for students in all courses \n1. Enter mark by course \n2. Enter mark by student \n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    l += 4
-
-                    msg = "Enter mode: "
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    t = int(stdscr.getstr(l, len(msg), 1).decode("utf-8"))
-                    addMarks(sList, cList, mList, t)
-                else:
-                    msg = "The option is unavailable\n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    stdscr.getkey()
-            elif (c == 4):
-                stdscr.clear()
-                if (enteredStudents):
-                    listObjects(sList)
-                else:
-                    msg = "The option is unavailable\n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    stdscr.getkey()
-            elif (c == 5):
-                stdscr.clear()
-                if (enteredCourses):
-                    listObjects(cList)
-                else:
-                    msg = "The option is unavailable\n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    stdscr.getkey()
-            elif (c == 6):
-                stdscr.clear()
-                if (enteredMarks):
-                    msg = "Mode: \n0. List all \n1. List by course \n2. List by student \n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    l += 3
-
-                    msg = "Select mark listing mode: "
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    l += 1
-                    t = int(stdscr.getstr(l, len(msg), 1).decode("utf-8"))
-                    if (t == 1):
-                        msg = "Enter Student ID: "
-                    elif (t == 2):
-                        msg = "Enter Course ID: "
-                    t2 = ""
-                    if (t != 0):
-                        stdscr.addstr(msg)
-                        stdscr.refresh()
-                        l += 1
-                        t2 = int(stdscr.getstr(l, len(msg), 16).decode("utf-8"))
-                    listMark(mList, t2, t)
-                else:
-                    msg = "The option is unavailable\n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    stdscr.getkey()
-            elif (c == 7):
-                stdscr.clear()
-                if (enteredMarks):
-                    gArray = getGPAS(mList)
-                    sList = sortStudentList(sList, sortGPA(gArray))
-                    stdscr.clear()
-                    for i in range(0, len(sList)):
-                        msg = f"ID: {sList[i].id}. Name: {sList[i].name}. GPA: {gArray[1, i]}\n"
-                        stdscr.addstr(msg)
-                        stdscr.refresh()    
-                    stdscr.getkey()
-                else:
-                    msg = "The option is unavailable\n"
-                    stdscr.addstr(msg)
-                    stdscr.refresh()
-                    stdscr.getkey()
+                t = int(stdscr.getstr(l, len(msg), 1).decode("utf-8"))
+                addMarks(sList, cList, mList, t)
             else:
-                stdscr.clear()
                 msg = "The option is unavailable\n"
                 stdscr.addstr(msg)
                 stdscr.refresh()
                 stdscr.getkey()
+        elif (c == 4):
+            stdscr.clear()
+            if (enteredStudents):
+                listObjects(sList)
+            else:
+                msg = "The option is unavailable\n"
+                stdscr.addstr(msg)
+                stdscr.refresh()
+                stdscr.getkey()
+        elif (c == 5):
+            stdscr.clear()
+            if (enteredCourses):
+                listObjects(cList)
+            else:
+                msg = "The option is unavailable\n"
+                stdscr.addstr(msg)
+                stdscr.refresh()
+                stdscr.getkey()
+        elif (c == 6):
+            stdscr.clear()
+            if (enteredMarks):
+                msg = "Mode: \n0. List all \n1. List by course \n2. List by student \n"
+                stdscr.addstr(msg)
+                stdscr.refresh()
+                l += 3
+
+                msg = "Select mark listing mode: "
+                stdscr.addstr(msg)
+                stdscr.refresh()
+                l += 1
+                t = int(stdscr.getstr(l, len(msg), 1).decode("utf-8"))
+                if (t == 1):
+                    msg = "Enter Course ID: "
+                elif (t == 2):
+                    msg = "Enter Student ID: "
+                t2 = ""
+                if (t != 0):
+                    stdscr.addstr(msg)
+                    stdscr.refresh()
+                    l += 1
+                    t2 = stdscr.getstr(l, len(msg), 16).decode("utf-8")
+                listMark(mList, t2, t)
+            else:
+                msg = "The option is unavailable\n"
+                stdscr.addstr(msg)
+                stdscr.refresh()
+                stdscr.getkey()
+        elif (c == 7):
+            stdscr.clear()
+            if (enteredMarks):
+                gArray = getGPAS(mList)
+                sList = sortStudentList(sList, sortGPA(gArray))
+                stdscr.clear()
+                for i in range(0, len(sList)):
+                    msg = f"ID: {sList[i].id}. Name: {sList[i].name}. GPA: {gArray[1, i]}\n"
+                    stdscr.addstr(msg)
+                    stdscr.refresh()    
+                stdscr.getkey()
+            else:
+                msg = "The option is unavailable\n"
+                stdscr.addstr(msg)
+                stdscr.refresh()
+                stdscr.getkey()
+        else:
+            stdscr.clear()
+            msg = "The option is unavailable\n"
+            stdscr.addstr(msg)
+            stdscr.refresh()
+            stdscr.getkey()
 
 wrapper(main)
