@@ -1,4 +1,5 @@
 import curses
+import outputCodes as Out
 from domains.studentClass import student
 from domains.courseClass import course
 from domains.markClass import mark
@@ -81,14 +82,14 @@ def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0, scr 
             scr.addstr(msg)
             scr.refresh()
             Mark = float(stdscr.getstr(l, len(msg), 7).decode("utf-8"))
-            lMarks.append(mark(Mark, getObject(lStudents, ID), lCourses[i]))
+            lMarks.append(mark(Mark, Out.getObject(lStudents, ID), lCourses[i]))
             l += 1
         elif (iMode == 1):
             msg = f"Enter course {ID} - student {lStudents[i].id} mark: "
             scr.addstr(msg)
             scr.refresh()
             Mark = float(stdscr.getstr(l, len(msg), 7).decode("utf-8"))
-            lMarks.append(mark(Mark, lStudents[i], getObject(lCourses, ID)))
+            lMarks.append(mark(Mark, lStudents[i], Out.getObject(lCourses, ID)))
             l += 1
         else:
             for j in range(0, len(lCourses)):

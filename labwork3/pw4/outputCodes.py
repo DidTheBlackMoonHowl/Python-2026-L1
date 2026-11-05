@@ -53,7 +53,7 @@ def getSortedStudentList(lStudents: list, aGPAs: np.ndarray):
         for obj in lStudents:
             if (IDString == obj.getID()):
                 In.addObjects(sortedList, obj)
-    return sortedList;
+    return sortedList
 
 def outPrint(oObject: object, scr = stdscr):
     if (type(oObject) == student):
