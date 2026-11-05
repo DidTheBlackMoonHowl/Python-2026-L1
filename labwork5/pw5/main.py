@@ -9,16 +9,6 @@ import curses
 from curses import wrapper
 stdscr = curses.initscr()
 
-def load(studentList = None, courseList = None, markList = None, bS = None, bC = None, bM = None):
-    os.makedirs("./datas", exist_ok=True)
-    if os.path.exists("./datas/students.dat"):
-        sDat = zipfile.ZipFile("./datas/students.dat", "w")
-        bS = True
-        bC = True
-        bM = True
-    else:
-        return
-
 def main(stdscr):
     curses.echo()
     files = ["./datas/students.txt", "./datas/courses.txt", "./datas/marks.txt"]
@@ -29,13 +19,13 @@ def main(stdscr):
     enteredStudents = 0
     enteredCourses = 0
     enteredMarks = 0
-    loaded = 0
+    startCheck = 0
     msg = ""
     c: int
     t: int
     while True:
-        if (loaded == 0):
-            loaded = 1
+        if (startCheck == 0):
+            startCheck = 1
             if os.path.exists("./datas/students.dat"):
                 sDat = zipfile.ZipFile("./datas/students.dat", "r")
                 sDat.extractall("./")
@@ -50,7 +40,6 @@ def main(stdscr):
                 if os.path.exists(files[2]):
                     enteredMarks = 1
 
-
         else:
             if (enteredStudents):
                 sList = In.readFromFile(files[0])
@@ -58,7 +47,7 @@ def main(stdscr):
                 cList = In.readFromFile(files[1])
             if (enteredMarks):
                 mList = In.readFromFile(files[2])
-                
+
             stdscr.clear()
             l = 0
 
