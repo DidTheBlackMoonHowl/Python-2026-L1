@@ -2,16 +2,16 @@
 # from . import domains
 import os
 import zipfile
-import inputCodes as In
-import outputCodes as Out
-import numpy as np
 import curses
+import numpy as np
+from . import inputCodes as In
+from . import outputCodes as Out
 from curses import wrapper
 stdscr = curses.initscr()
 
 def main(stdscr):
     curses.echo()
-    files = ["./datas/students.txt", "./datas/courses.txt", "./datas/marks.txt"]
+    files = ["./pw5/datas/students.txt", "./pw5/datas/courses.txt", "./pw5/datas/marks.txt"]
     sList = []
     cList = []
     mList = []
@@ -26,8 +26,8 @@ def main(stdscr):
     while True:
         if (startCheck == 0):
             startCheck = 1
-            if os.path.exists("./datas/students.dat"):
-                sDat = zipfile.ZipFile("./datas/students.dat", "r")
+            if os.path.exists("./pw5/datas/students.dat"):
+                sDat = zipfile.ZipFile("./pw5/datas/students.dat", "r")
                 sDat.extractall("./")
                 sDat.close()
 
@@ -75,11 +75,11 @@ def main(stdscr):
             l = 0
 
             if (c == 0):
-                os.makedirs("./datas", exist_ok=True)
-                sDat = zipfile.ZipFile("./datas/students.dat", "w")
+                os.makedirs("./pw5/datas", exist_ok=True)
+                sDat = zipfile.ZipFile("./pw5/datas/students.dat", "w")
                 sDat.write(files[0])
                 sDat.write(files[1])
-                sDat.write(files[3])
+                sDat.write(files[2])
                 sDat.close()
                 curses.nocbreak()
                 stdscr.keypad(False)

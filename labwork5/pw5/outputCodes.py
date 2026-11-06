@@ -1,8 +1,8 @@
 import numpy as np
-import inputCodes as In
-from domains.studentClass import student
-from domains.courseClass import course
-from domains.markClass import mark
+from . import inputCodes as In
+from .domains.studentClass import student
+from .domains.courseClass import course
+from .domains.markClass import mark
 import curses
 stdscr = curses.initscr()
 

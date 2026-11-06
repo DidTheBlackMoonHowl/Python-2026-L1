@@ -1,9 +1,9 @@
 import os
 import curses
-import outputCodes as Out
-from domains.studentClass import student
-from domains.courseClass import course
-from domains.markClass import mark
+from . import outputCodes as Out
+from .domains.studentClass import student
+from .domains.courseClass import course
+from .domains.markClass import mark
 
 stdscr = curses.initscr()
 
@@ -11,7 +11,7 @@ def addObjects(lList: list, oObject: object):
     lList.append(oObject)
 
 def readFromFile(file):
-    os.makedirs("./datas", exist_ok=True)
+    os.makedirs("./pw5/datas", exist_ok=True)
 
     f = open(file, "r")
     f1 = f.readlines()
@@ -21,17 +21,17 @@ def readFromFile(file):
     for t2 in f1:
         t1.append(t2.replace("\n", ""))
 
-    if (file == "./datas/students.txt"):
+    if (file == "./pw5/datas/students.txt"):
         for t2 in t1:
             t3 = t2.split(',')
             addObjects(returnList, student(t3[0], t3[1], t3[2]))
 
-    elif (file == "./datas/courses.txt"):
+    elif (file == "./pw5/datas/courses.txt"):
         for t2 in t1:
             t3 = t2.split(',')
             addObjects(returnList, course(t3[0], t3[1], int(t3[2])))
                 
-    elif (file == "./datas/marks.txt"):
+    elif (file == "./pw5/datas/marks.txt"):
         for t2 in t1:
             t3 = t2.split(',')
             addObjects(returnList, mark(float(t3[0]), student(t3[1], t3[2], t3[3]), course(t3[4], t3[5], int(t3[6]))))
@@ -43,20 +43,20 @@ def readFromFile(file):
     return returnList
 
 def writeToFile(file: str, content):
-    os.makedirs("./datas", exist_ok=True)
+    os.makedirs("./pw5/datas", exist_ok=True)
 
     # mode 'a' = write at the end
     f = open(file, "a")
     
-    if (file == "./datas/students.txt"):
+    if (file == "./pw5/datas/students.txt"):
         content: student
         f.write(content.getID() + "," + content.getName() + "," + content.getDoB() + "\n")
 
-    elif (file == "./datas/courses.txt"):
+    elif (file == "./pw5/datas/courses.txt"):
         content: course
         f.write(content.getID() + "," + content.getName() + "," + str(content.getPoint()) + "\n")
 
-    elif (file == "./datas/marks.txt"):
+    elif (file == "./pw5/datas/marks.txt"):
         content: mark
         f.write(str(content.getMark()) + ",")
         f.write(content.getStudent().getID() + "," + content.getStudent().getName() + "," + content.getStudent().getDoB() + ",")
@@ -88,7 +88,7 @@ def addStudents(lStudents: list, iAmount: int = 1, scr = stdscr):
         sDoB = stdscr.getstr(l + 2, len(msg), 10).decode("utf-8")
 
         l += 3
-        writeToFile("./datas/students.txt", student(sID, sName, sDoB))
+        writeToFile("./pw5/datas/students.txt", student(sID, sName, sDoB))
 
 def addCourses(lCourses: list, iAmount: int = 1, scr = stdscr):
     scr.clear()
@@ -110,7 +110,7 @@ def addCourses(lCourses: list, iAmount: int = 1, scr = stdscr):
         iCredits = int(stdscr.getstr(l + 2, len(msg), 1).decode("utf-8"))
 
         l += 3
-        writeToFile("./datas/courses.txt", course(sID, sName, iCredits))
+        writeToFile("./pw5/datas/courses.txt", course(sID, sName, iCredits))
 
 def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0, scr = stdscr):
     scr.clear()
@@ -140,14 +140,14 @@ def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0, scr 
             scr.addstr(msg)
             scr.refresh()
             Mark = float(stdscr.getstr(l, len(msg), 7).decode("utf-8"))            
-            writeToFile("./datas/marks.txt", mark(Mark, Out.getObject(lStudents, ID), lCourses[i]))
+            writeToFile("./pw5/datas/marks.txt", mark(Mark, Out.getObject(lStudents, ID), lCourses[i]))
             l += 1
         elif (iMode == 1):
             msg = f"Enter course {ID} - student {lStudents[i].id} mark: "
             scr.addstr(msg)
             scr.refresh()
             Mark = float(stdscr.getstr(l, len(msg), 7).decode("utf-8"))
-            writeToFile("./datas/marks.txt", mark(Mark, lStudents[i], Out.getObject(lCourses, ID)))
+            writeToFile("./pw5/datas/marks.txt", mark(Mark, lStudents[i], Out.getObject(lCourses, ID)))
             l += 1
         else:
             for j in range(0, len(lCourses)):
@@ -155,6 +155,6 @@ def addMarks(lStudents: list, lCourses: list, lMarks: list, iMode: int = 0, scr 
                 scr.addstr(msg)
                 scr.refresh()
                 Mark = float(stdscr.getstr(l, len(msg), 7).decode("utf-8"))
-                writeToFile("./datas/marks.txt", mark(Mark, lStudents[i], lCourses[j]))
+                writeToFile("./pw5/datas/marks.txt", mark(Mark, lStudents[i], lCourses[j]))
                 l += 1
 
